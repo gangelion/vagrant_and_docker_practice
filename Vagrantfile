@@ -15,6 +15,10 @@ Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/trusty64"
   config.vm.network "private_network", ip: "192.168.33.10"
 
+  config.ssh.insert_key = false
+
+  # config.vm.provision :shell, path: "dockerinstall.sh"
+
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
   # `vagrant box outdated`. This is not recommended.
@@ -47,6 +51,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.synced_folder ".", "/home/vagrant", create: true
 
+
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
@@ -73,5 +78,5 @@ Vagrant.configure("2") do |config|
   config.vm.provision :docker
   # Install the following plug-ins in advance
   # $ vagrant plugin install vagrant-docker-compose
-  config.vm.provision :docker_compose, yml: "./docker-compose.yml", run: "always"
+  config.vm.provision :docker_compose, compose_version: "1.24.1" #, yml: "docker-compose.yml"
 end
